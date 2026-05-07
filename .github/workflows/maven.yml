@@ -22,10 +22,7 @@ permissions:
 jobs:
   build:
 
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 21
@@ -36,5 +33,13 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package -DskipTests --file pom.xml
+
+    - name: Build and Push Docker Image
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+       image: 50102024/demo-app
+       registry: docker.io
+       username: ${{ secrets.DOCKER_USERNAME }}
+       password: ${{ secrets.DOCKER_PASSWORD }}
 
    
