@@ -21,8 +21,7 @@ public class Demo1Application {
         String username = "postgres";
         String password = "0000";
         String query = "insert into client values (?,?,?)";
-
-
+        System.out.println(sid);
 
         Class.forName("org.postgresql.Driver");
         Connection connection = DriverManager.getConnection(url, username, password);
